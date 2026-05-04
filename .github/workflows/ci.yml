@@ -24,7 +24,7 @@ jobs:
         run: make lint
 
       - name: Format check
-        run: make format-check
+        run: uv run black --check src tests
 
       - name: Type check
         run: make typecheck
