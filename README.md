@@ -1,6 +1,15 @@
 # Atelier — Open-Source Reasoning Runtime
 
+[![CI](https://github.com/pankaj4u4m/atelier/actions/workflows/ci.yml/badge.svg)](https://github.com/pankaj4u4m/atelier/actions/workflows/ci.yml)
+[![License: Apache-2.0](https://img.shields.io/badge/License-Apache--2.0-blue.svg)](LICENSE)
+[![Python](https://img.shields.io/badge/python-3.11%2B-blue)](pyproject.toml)
+[![Ruff](https://img.shields.io/badge/lint-ruff-blue)](https://github.com/astral-sh/ruff)
+[![Mypy](https://img.shields.io/badge/types-mypy-blue)](https://mypy-lang.org/)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](CONTRIBUTING.md)
+
 An open-source reasoning runtime for coding agents and operational AI systems.
+
+> **Project status:** Atelier is early and experimental. The core shape is forming, but APIs, storage, integrations, and abstractions may change quickly. Contributors, design criticism, issues, and small PRs are very welcome.
 
 Atelier sits between agent hosts and their environments, providing:
 
@@ -22,6 +31,30 @@ Atelier sits between agent hosts and their environments, providing:
 - **Not an agent framework** — Atelier does not execute tools, manage model calls, or own the agent loop.
 - **Not an IDE** — Atelier runs as a sidecar to your agent host, not as a standalone coding environment.
 - **Not a vector database** — FTS5 is the default retrieval; pgvector is optional for semantic similarity.
+
+## Looking for contributors
+
+Good areas to help:
+
+- MCP integrations and host adapters
+- coding-agent workflows
+- Python backend/runtime work
+- memory and retrieval
+- evals, benchmarks, and reliability checks
+- docs, tutorials, examples, and demo GIFs
+- security review and hardening
+
+New contributors can start with issues labeled `good first issue` or `help wanted`.
+
+## Roadmap
+
+- [ ] Stable local runtime
+- [ ] MCP integration polish
+- [ ] Better ReasonBlock authoring flow
+- [ ] Failure rescue examples
+- [ ] Benchmarks and evals
+- [ ] Hosted/service mode hardening
+- [ ] Demo projects and screenshots
 
 ## Architecture
 
@@ -300,12 +333,12 @@ uv run atelier --root /tmp/bench savings-detail
 ### Per-model summary (5 tasks × 5 rounds = 25 calls each)
 
 | Model             | Would-have |   Actual |    Saved | % down |
-| ----------------- | ---------: | -------: | -------: | -----: | --- |
-| claude-opus-4.6   |   $ 4.3125 | $ 4.0088 | $ 0.3038 | 7.04 % |     |
-| claude-sonnet-4.6 |   $ 0.8625 | $ 0.8017 | $ 0.0607 | 7.04 % |     |
-| claude-haiku-4.5  |   $ 0.2300 | $ 0.2138 | $ 0.0162 | 7.04 % |     |
-| gpt-4o            |   $ 0.6250 | $ 0.5806 | $ 0.0444 | 7.10 % |     |
-| gemini-2.5-pro    |   $ 0.3125 | $ 0.2900 | $ 0.0225 | 7.18 % |     |
+| ----------------- | ---------: | -------: | -------: | -----: |
+| claude-opus-4.6   |   $ 4.3125 | $ 4.0088 | $ 0.3038 | 7.04 % |
+| claude-sonnet-4.6 |   $ 0.8625 | $ 0.8017 | $ 0.0607 | 7.04 % |
+| claude-haiku-4.5  |   $ 0.2300 | $ 0.2138 | $ 0.0162 | 7.04 % |
+| gpt-4o            |   $ 0.6250 | $ 0.5806 | $ 0.0444 | 7.10 % |
+| gemini-2.5-pro    |   $ 0.3125 | $ 0.2900 | $ 0.0225 | 7.18 % |
 
 The 7% is per-call savings from a single retrieved procedure plus prompt caching.
 On real workloads (many lessons per task, larger procedures) it scales toward the prompt-cache ceiling.
@@ -316,14 +349,13 @@ Full report: [docs/benchmarks/phase7-2026-04-29.md](docs/benchmarks/phase7-2026-
 
 ```bash
 cd atelier
-make install         # uv sync --all-extras
+make install         # deps + host integrations + status helper + runtime init
 make test            # pytest
 make lint            # ruff check
+make format-check    # black --check
 make typecheck       # mypy --strict
-make verify          # lint + typecheck + tests (CI gate)
+make verify          # code checks + runtime smoke tests + host verification
 make pre-commit      # format + lint + typecheck + tests
-make install-agent-clis  # install into all available agent CLIs
-make verify-agent-clis   # verify all integrations
 ```
 
 → Dev guide: [docs/engineering/contributing.md](docs/engineering/contributing.md)
@@ -349,3 +381,7 @@ make verify-agent-clis   # verify all integrations
 | **[docs/quickstart.md](docs/quickstart.md)**     | New users     | 5-minute tutorial                                      |
 | **[docs/engineering/](docs/engineering/)**       | Contributors  | Architecture, security, storage, service, MCP          |
 | **[docs/hosts/](docs/hosts/)**                   | Integrators   | Per-host install, verify, uninstall, troubleshooting   |
+
+## License
+
+Apache-2.0. See [LICENSE](LICENSE).
