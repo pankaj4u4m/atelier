@@ -4,8 +4,12 @@ version = "0.1.0"
 description = "Beseam Reasoning Runtime — reusable procedures, failure rescue, and rubric verification for coding and product agents."
 readme = "README.md"
 requires-python = ">=3.11"
-license = { text = "Proprietary" }
+license = { text = "Apache-2.0" }
 authors = [{ name = "Beseam" }]
+
+classifiers = [
+    "License :: OSI Approved :: Apache Software License",
+]
 
 dependencies = [
     "pydantic>=2.6",
@@ -19,7 +23,7 @@ dependencies = [
     "GitPython>=3.1",
     "prometheus-client>=0.21",
     "tenacity>=9.0",
-    "pybreaker>=1.2",
+    "pybreaker>=0.22",
     "river>=0.22",
     "networkx>=3.4",
     "mypy>=1.20.2",
